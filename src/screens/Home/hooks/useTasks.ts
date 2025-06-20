@@ -3,6 +3,11 @@ import { api } from '@api/api';
 import { NewTask, Task } from '@shared/types/tasks';
 import { Alert } from 'react-native';
 import { taskFormStore } from '@screens/Home/store';
+import {
+  API_ENDPOINTS,
+  VALIDATION_MESSAGES,
+  ERROR_MESSAGES,
+} from '@shared/constants';
 
 interface ApiError {
   message: string;
@@ -12,17 +17,17 @@ interface ApiError {
 const handleApiError = (error: any): ApiError => {
   if (error.response) {
     return {
-      message: error.response.data?.message || 'Server error occurred',
+      message: error.response.data?.message || ERROR_MESSAGES.SERVER_ERROR,
       status: error.response.status,
     };
   }
   if (error.request) {
     return {
-      message: 'Network error. Please check your connection.',
+      message: ERROR_MESSAGES.NETWORK_ERROR,
     };
   }
   return {
-    message: error.message || 'An unexpected error occurred',
+    message: error.message || ERROR_MESSAGES.UNEXPECTED_ERROR,
   };
 };
 
@@ -41,7 +46,7 @@ function useTasks() {
     setIsFetching(true);
     setError(null);
     try {
-      const res = await api.get('/');
+      const res = await api.get(API_ENDPOINTS.TASKS);
       setData(res.data);
     } catch (err: any) {
       const apiError = handleApiError(err);
@@ -56,7 +61,7 @@ function useTasks() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await api.post('/', task);
+      const res = await api.post(API_ENDPOINTS.TASKS, task);
       setData(prev => [res.data, ...prev]);
     } catch (err: any) {
       const apiError = handleApiError(err);
@@ -71,7 +76,7 @@ function useTasks() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await api.put(`/${task._id}`, task);
+      const res = await api.put(`${API_ENDPOINTS.TASKS}${task._id}`, task);
       setData(prev => prev.map(t => (t._id === task._id ? res.data : t)));
     } catch (err: any) {
       const apiError = handleApiError(err);
@@ -86,7 +91,7 @@ function useTasks() {
     setIsLoading(true);
     setError(null);
     try {
-      await api.delete(`/${id}`);
+      await api.delete(`${API_ENDPOINTS.TASKS}${id}`);
       setData(prev => prev.filter(t => t._id !== id));
     } catch (err: any) {
       const apiError = handleApiError(err);
@@ -101,7 +106,7 @@ function useTasks() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await api.patch(`/${id}/done`);
+      const res = await api.patch(API_ENDPOINTS.TASK_DONE(id));
       setData(prev => prev.map(t => (t._id === id ? res.data : t)));
     } catch (err: any) {
       const apiError = handleApiError(err);
@@ -115,7 +120,10 @@ function useTasks() {
   const saveTask = useCallback(() => {
     const trimmedTitle = title.trim();
     if (!trimmedTitle) {
-      Alert.alert('Validation Error', 'Task name cannot be empty');
+      Alert.alert(
+        VALIDATION_MESSAGES.VALIDATION_ERROR,
+        VALIDATION_MESSAGES.TASK_TITLE_REQUIRED,
+      );
       return;
     }
 

@@ -3,6 +3,7 @@ import { EmptyList, TaskItem } from '@screens/Home/components';
 import { FlatList } from 'react-native';
 import { taskFilterStore } from '@screens/Home/store';
 import { Task } from '@shared/types/tasks';
+import { filterTasks, sortTasks } from '@utils/array';
 import styles from './styles';
 
 interface TaskListProps {
@@ -15,10 +16,9 @@ interface TaskListProps {
 const TaskList: FC<TaskListProps> = React.memo(
   ({ data, isLoading, toggleDone, deleteTask }) => {
     const filterType = taskFilterStore(state => state.filterType);
-
-    const filteredData = useMemo(() => {
-      if (filterType === 'important') return data.filter(t => t.important);
-      return data;
+    const processedData = useMemo(() => {
+      const filtered = filterTasks(data, filterType);
+      return sortTasks(filtered);
     }, [data, filterType]);
 
     const renderItem = useCallback(
@@ -37,7 +37,7 @@ const TaskList: FC<TaskListProps> = React.memo(
 
     return (
       <FlatList
-        data={filteredData}
+        data={processedData}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         style={styles.list}
