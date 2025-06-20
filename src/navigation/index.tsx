@@ -1,8 +1,8 @@
 import React from 'react';
 import Screens from '../screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../interfaces/navigation';
-import { ScreenOptions } from '../config/navigation';
+import { ScreenOptions } from '@config/navigation';
+import { RootStackParamList } from '@shared/types/navigation';
 
 export default function RootStack() {
   const Stack = createNativeStackNavigator<RootStackParamList>();

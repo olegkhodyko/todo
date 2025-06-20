@@ -1,0 +1,9 @@
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
+  filterRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+});

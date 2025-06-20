@@ -6,8 +6,8 @@
       "@app": ["app/index.ts"],
       "@app/*": ["app/*"],
 
-      "@components": ["components/index.ts"],
-      "@components/*": ["components/*"],
+      "@shared": ["shared/index.ts"],
+      "@shared/*": ["shared/*"],
 
       "@config": ["config/index.ts"],
       "@config/*": ["config/*"],
@@ -18,8 +18,11 @@
       "@screens": ["screens/index.ts"],
       "@screens/*": ["screens/*"],
 
-      "@src/interfaces": ["src/interfaces/index.ts"],
-      "@src/interfaces/*": ["src/interfaces/*"],
+      "@interfaces": ["interfaces/index.ts"],
+      "@interfaces/*": ["interfaces/*"],
+
+      "@features": ["features/index.ts"],
+      "@features/*": ["features/*"],
 
       "@utils": ["utils/index.ts"],
       "@utils/*": ["utils/*"]

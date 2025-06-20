@@ -1,4 +1,4 @@
-import { RootNavigationScreenOptions } from 'interfaces/navigation';
+import { RootNavigationScreenOptions } from '@shared/types/navigation';
 
 export const ScreenOptions: RootNavigationScreenOptions = {
   Home: {
