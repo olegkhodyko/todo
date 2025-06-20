@@ -6,6 +6,9 @@
       "@app": ["app/index.ts"],
       "@app/*": ["app/*"],
 
+      "@api": ["api/index.ts"],
+      "@api/*": ["api/*"],
+
       "@shared": ["shared/index.ts"],
       "@shared/*": ["shared/*"],
 

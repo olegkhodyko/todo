@@ -1,22 +1,24 @@
-import { Task } from '@shared/types/tasks';
+import { Task } from '@shared/types/api';
 import React, { FC, memo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useTaskForm } from '@screens/Home/store/form';
 import styles from './styles';
 
 interface TaskItemProps {
   task: Task;
-  startEdit: (task: Task) => void;
-  toggleDone: (id: string) => void;
-  deleteTask: (id: string) => void;
+  isLoading: boolean;
+  toggleDone: (id: Task['_id']) => void;
+  deleteTask: (id: Task['_id']) => void;
 }
 
 const TaskItem: FC<TaskItemProps> = ({
   task,
-  startEdit,
+  isLoading,
   toggleDone,
   deleteTask,
 }) => {
-  console.log(task.id);
+  const startEdit = useTaskForm(state => state.startEdit);
+
   return (
     <View style={[styles.taskItem, task.done && styles.taskDone]}>
       <View style={{ flex: 1 }}>
@@ -34,19 +36,22 @@ const TaskItem: FC<TaskItemProps> = ({
       <View style={styles.buttonsRow}>
         <TouchableOpacity
           style={styles.smallButton}
-          onPress={() => toggleDone(task.id)}
+          onPress={() => toggleDone(task._id)}
+          disabled={isLoading}
         >
           <Text style={styles.smallButtonText}>{task.done ? '↺' : '✓'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.smallButton}
           onPress={() => startEdit(task)}
+          disabled={isLoading}
         >
           <Text style={styles.smallButtonText}>✎</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.smallButton}
-          onPress={() => deleteTask(task.id)}
+          onPress={() => deleteTask(task._id)}
+          disabled={isLoading}
         >
           <Text style={[styles.smallButtonText, { color: 'red' }]}>🗑</Text>
         </TouchableOpacity>

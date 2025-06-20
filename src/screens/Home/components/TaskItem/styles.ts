@@ -47,4 +47,10 @@ export default StyleSheet.create({
     fontSize: 16,
     color: '#1e40af',
   },
+
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

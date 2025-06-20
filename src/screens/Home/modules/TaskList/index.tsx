@@ -1,43 +1,51 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { EmptyList, TaskItem } from '@screens/Home/components';
-import { Task } from '@shared/types/tasks';
-import { FlatList, StyleSheet } from 'react-native';
+import { Task } from '@shared/types/api';
+import { FlatList } from 'react-native';
+import styles from './styles';
+import { useTaskForm } from '@screens/Home/store/form';
 
 interface TaskListProps {
-  tasks: Task[];
-  startEdit: (task: Task) => void;
-  toggleDone: (id: string) => void;
-  deleteTask: (id: string) => void;
+  data: Task[];
+  isLoading: boolean;
+  toggleDone: (id: Task['_id']) => void;
+  deleteTask: (id: Task['_id']) => void;
 }
 
 const TaskList: FC<TaskListProps> = ({
-  tasks,
-  startEdit,
+  data,
+  isLoading,
   toggleDone,
   deleteTask,
 }) => {
+  const filterType = useTaskForm(state => state.filterType);
+
+  const filteredData = React.useMemo(() => {
+    if (filterType === 'important') return data.filter(t => t.important);
+    return data;
+  }, [data, filterType]);
+
+  const renderItem = useCallback(
+    ({ item }: { item: Task }) => (
+      <TaskItem
+        isLoading={isLoading}
+        task={item}
+        toggleDone={toggleDone}
+        deleteTask={deleteTask}
+      />
+    ),
+    [],
+  );
+
   return (
     <FlatList
-      data={tasks}
-      keyExtractor={item => item.id}
-      renderItem={({ item }) => (
-        <TaskItem
-          task={item}
-          startEdit={startEdit}
-          toggleDone={toggleDone}
-          deleteTask={deleteTask}
-        />
-      )}
+      data={filteredData}
+      keyExtractor={item => item._id}
+      renderItem={renderItem}
       style={styles.list}
       ListEmptyComponent={<EmptyList />}
     />
   );
 };
-const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-    width: '100%',
-  },
-});
 
 export default TaskList;

@@ -1,23 +1,23 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import styles from './styles';
 import { Button } from '@shared/ui';
+import { useTaskForm } from '@screens/Home/store/form';
+import styles from './styles';
 
-interface ButtonsRowProps {
-  editingTask: boolean;
+interface TaskFormProps {
   saveTask: () => void;
-  cancelEdit: () => void;
 }
 
-const ButtonsRow: FC<ButtonsRowProps> = ({
-  editingTask,
-  saveTask,
-  cancelEdit,
-}) => (
-  <View style={styles.buttonsRow}>
-    <Button title={editingTask ? 'Save' : 'Add'} onPress={saveTask} />
-    {editingTask && <Button title="Cancel" onPress={cancelEdit} />}
-  </View>
-);
+const ButtonsRow: FC<TaskFormProps> = ({ saveTask }) => {
+  const editingTask = useTaskForm(state => state.editingTask);
+  const cancelEdit = useTaskForm(state => state.cancelEdit);
+
+  return (
+    <View style={styles.buttonsRow}>
+      <Button title={editingTask ? 'Save' : 'Add'} onPress={saveTask} />
+      {editingTask && <Button title="Cancel" onPress={cancelEdit} />}
+    </View>
+  );
+};
 
 export default ButtonsRow;

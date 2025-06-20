@@ -1,35 +1,25 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import { TaskFilter } from '@shared/types/tasks';
-import styles from './styles';
 import { FilterButton } from '@shared/ui';
+import { FILTER_DATA } from '@screens/Home/constants/filters';
+import { useTaskForm } from '@screens/Home/store/form';
+import styles from './styles';
 
-interface FilterRowProps {
-  filter: TaskFilter;
-  setFilter: (filter: TaskFilter) => void;
-}
+const FilterRow: FC = () => {
+  const filterType = useTaskForm(state => state.filterType);
+  const setFilterType = useTaskForm(state => state.setFilterType);
 
-interface DataProps {
-  id: number;
-  type: TaskFilter;
-  title: string;
-}
-
-const data: DataProps[] = [
-  { id: 1, type: 'all', title: 'All' },
-  { id: 2, type: 'important', title: 'Important' },
-];
-
-const FilterRow: FC<FilterRowProps> = ({ filter, setFilter }) => (
-  <View style={styles.filterRow}>
-    {data.map(({ id, type, title }) => (
-      <FilterButton
-        key={id}
-        active={filter === type}
-        title={title}
-        onPress={() => setFilter(type)}
-      />
-    ))}
-  </View>
-);
+  return (
+    <View style={styles.filterRow}>
+      {FILTER_DATA.map(({ id, type, title }) => (
+        <FilterButton
+          key={id}
+          active={filterType === type}
+          title={title}
+          onPress={() => setFilterType(type)}
+        />
+      ))}
+    </View>
+  );
+};
 export default FilterRow;
