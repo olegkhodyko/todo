@@ -1,11 +1,10 @@
-import { NewTask, Task, TaskFilter } from '@shared/types/tasks';
+import { NewTask, Task } from '@shared/types/tasks';
 
 export interface TaskFormState {
   title: string;
   description: string;
   important: boolean;
   editingTask: Task | null;
-  filterType: TaskFilter;
 
   setTitle: (title: string) => void;
   setDescription: (desc: string) => void;
@@ -14,5 +13,10 @@ export interface TaskFormState {
   startEdit: (task: Task) => void;
   cancelEdit: () => void;
   getFormData: () => NewTask;
-  setFilterType: (type: TaskFilter) => void;
 }
+
+export interface TaskFilterState {
+  filterType: 'all' | 'important';
+  setFilterType: (type: 'all' | 'important') => void;
+}
+

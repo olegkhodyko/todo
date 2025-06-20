@@ -44,7 +44,4 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  taskMuted: {
-    opacity: 0,
-  },
 });

@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import { FilterButton } from '@shared/ui';
 import { FILTER_DATA } from '@screens/Home/constants/filters';
-import { taskStore } from '@screens/Home/store';
+import { taskFilterStore } from '@screens/Home/store';
 import styles from './styles';
 
 const FilterRow: FC = () => {
-  const filterType = taskStore(state => state.filterType);
-  const setFilterType = taskStore(state => state.setFilterType);
+  const filterType = taskFilterStore(state => state.filterType);
+  const setFilterType = taskFilterStore(state => state.setFilterType);
 
   return (
     <View style={styles.filterRow}>

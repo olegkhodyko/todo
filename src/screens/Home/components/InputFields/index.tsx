@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { TextInput } from '@shared/ui';
-import { taskStore } from '@screens/Home/store';
+import { taskFormStore } from '@screens/Home/store';
 import styles from './styles';
 
 const InputFields: FC = () => {
-  const title = taskStore(state => state.title);
-  const description = taskStore(state => state.description);
-  const setTitle = taskStore(state => state.setTitle);
-  const setDescription = taskStore(state => state.setDescription);
+  const title = taskFormStore(state => state.title);
+  const description = taskFormStore(state => state.description);
+  const setTitle = taskFormStore(state => state.setTitle);
+  const setDescription = taskFormStore(state => state.setDescription);
 
   return (
     <React.Fragment>

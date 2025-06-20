@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Task } from '@shared/types/tasks';
 import { ItemButton } from '@shared/ui';
-import { taskStore } from '@screens/Home/store';
+import { taskFormStore } from '@screens/Home/store';
 import styles from './styles';
 
 interface TaskActionsProps {
@@ -17,7 +17,7 @@ const TaskActions: FC<TaskActionsProps> = ({
   onToggle,
   onDelete,
 }) => {
-  const onEdit = taskStore(state => state.startEdit);
+  const onEdit = taskFormStore(state => state.startEdit);
 
   return (
     <View style={styles.buttonsRow}>

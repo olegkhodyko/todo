@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button } from '@shared/ui';
-import { taskStore } from '@screens/Home/store';
+import { taskFormStore } from '@screens/Home/store';
 import styles from './styles';
 
 interface ButtonsRowProps {
@@ -9,8 +9,8 @@ interface ButtonsRowProps {
 }
 
 const ButtonsRow: FC<ButtonsRowProps> = ({ saveTask }) => {
-  const editingTask = taskStore(state => state.editingTask);
-  const cancelEdit = taskStore(state => state.cancelEdit);
+  const editingTask = taskFormStore(state => state.editingTask);
+  const cancelEdit = taskFormStore(state => state.cancelEdit);
 
   return (
     <View style={styles.buttonsRow}>

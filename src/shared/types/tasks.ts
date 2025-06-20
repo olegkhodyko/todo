@@ -1,9 +1,10 @@
-import { ValueOfEnum } from "@utils/types";
+import { ValueOfEnum } from '@utils/types';
 
-const TaskFilterEnum = {
+export const TaskFilterEnum = {
   all: 'all',
   important: 'important',
 } as const;
+
 export interface Task {
   _id: string;
   title: string;

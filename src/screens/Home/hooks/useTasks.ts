@@ -2,18 +2,40 @@ import { useState, useEffect, useCallback } from 'react';
 import { api } from '@api/api';
 import { NewTask, Task } from '@shared/types/tasks';
 import { Alert } from 'react-native';
-import { taskStore } from '@screens/Home/store';
+import { taskFormStore } from '@screens/Home/store';
+
+interface ApiError {
+  message: string;
+  status?: number;
+}
+
+const handleApiError = (error: any): ApiError => {
+  if (error.response) {
+    return {
+      message: error.response.data?.message || 'Server error occurred',
+      status: error.response.status,
+    };
+  }
+  if (error.request) {
+    return {
+      message: 'Network error. Please check your connection.',
+    };
+  }
+  return {
+    message: error.message || 'An unexpected error occurred',
+  };
+};
 
 function useTasks() {
   const [data, setData] = useState<Task[]>([]);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<ApiError | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const getFormData = taskStore(state => state.getFormData);
-  const cancelEdit = taskStore(state => state.cancelEdit);
-  const editingTask = taskStore(state => state.editingTask);
-  const title = taskStore(state => state.title);
+  const getFormData = taskFormStore(state => state.getFormData);
+  const cancelEdit = taskFormStore(state => state.cancelEdit);
+  const editingTask = taskFormStore(state => state.editingTask);
+  const title = taskFormStore(state => state.title);
 
   const fetchTasks = useCallback(async () => {
     setIsFetching(true);
@@ -22,7 +44,9 @@ function useTasks() {
       const res = await api.get('/');
       setData(res.data);
     } catch (err: any) {
-      setError(err);
+      const apiError = handleApiError(err);
+      setError(apiError);
+      Alert.alert('Error', apiError.message);
     } finally {
       setIsFetching(false);
     }
@@ -35,7 +59,9 @@ function useTasks() {
       const res = await api.post('/', task);
       setData(prev => [res.data, ...prev]);
     } catch (err: any) {
-      setError(err);
+      const apiError = handleApiError(err);
+      setError(apiError);
+      Alert.alert('Error', apiError.message);
     } finally {
       setIsLoading(false);
     }
@@ -48,7 +74,9 @@ function useTasks() {
       const res = await api.put(`/${task._id}`, task);
       setData(prev => prev.map(t => (t._id === task._id ? res.data : t)));
     } catch (err: any) {
-      setError(err);
+      const apiError = handleApiError(err);
+      setError(apiError);
+      Alert.alert('Error', apiError.message);
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +89,9 @@ function useTasks() {
       await api.delete(`/${id}`);
       setData(prev => prev.filter(t => t._id !== id));
     } catch (err: any) {
-      setError(err);
+      const apiError = handleApiError(err);
+      setError(apiError);
+      Alert.alert('Error', apiError.message);
     } finally {
       setIsLoading(false);
     }
@@ -74,15 +104,18 @@ function useTasks() {
       const res = await api.patch(`/${id}/done`);
       setData(prev => prev.map(t => (t._id === id ? res.data : t)));
     } catch (err: any) {
-      setError(err);
+      const apiError = handleApiError(err);
+      setError(apiError);
+      Alert.alert('Error', apiError.message);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  const saveTask = () => {
-    if (!title) {
-      Alert.alert('Task name cannot be empty');
+  const saveTask = useCallback(() => {
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
+      Alert.alert('Validation Error', 'Task name cannot be empty');
       return;
     }
 
@@ -93,7 +126,7 @@ function useTasks() {
     }
 
     cancelEdit();
-  };
+  }, [title, editingTask, getFormData, updateTask, addTask, cancelEdit]);
 
   useEffect(() => {
     fetchTasks();
@@ -112,4 +145,5 @@ function useTasks() {
     saveTask,
   };
 }
+
 export default useTasks;

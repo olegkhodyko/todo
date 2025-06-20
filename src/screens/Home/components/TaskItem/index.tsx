@@ -19,11 +19,7 @@ const TaskItem: FC<TaskItemProps> = ({
   deleteTask,
 }) => (
   <View
-    style={[
-      styles.taskItem,
-      task.done && styles.taskDone,
-      isLoading && styles.taskMuted,
-    ]}
+    style={[styles.taskItem, task.done && styles.taskDone]}
     pointerEvents={isLoading ? 'none' : 'auto'}
   >
     <TaskContent task={task} />

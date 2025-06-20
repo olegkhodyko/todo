@@ -1,7 +1,7 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { EmptyList, TaskItem } from '@screens/Home/components';
 import { FlatList } from 'react-native';
-import { taskStore } from '@screens/Home/store';
+import { taskFilterStore } from '@screens/Home/store';
 import { Task } from '@shared/types/tasks';
 import styles from './styles';
 
@@ -12,41 +12,42 @@ interface TaskListProps {
   deleteTask: (id: Task['_id']) => void;
 }
 
-const TaskList: FC<TaskListProps> = ({
-  data,
-  isLoading,
-  toggleDone,
-  deleteTask,
-}) => {
-  const filterType = taskStore(state => state.filterType);
+const TaskList: FC<TaskListProps> = React.memo(
+  ({ data, isLoading, toggleDone, deleteTask }) => {
+    const filterType = taskFilterStore(state => state.filterType);
 
-  const filteredData = React.useMemo(() => {
-    if (filterType === 'important') return data.filter(t => t.important);
-    return data;
-  }, [data, filterType]);
+    const filteredData = useMemo(() => {
+      if (filterType === 'important') return data.filter(t => t.important);
+      return data;
+    }, [data, filterType]);
 
-  const renderItem = useCallback(
-    ({ item }: { item: Task }) => (
-      <TaskItem
-        isLoading={isLoading}
-        task={item}
-        toggleDone={toggleDone}
-        deleteTask={deleteTask}
+    const renderItem = useCallback(
+      ({ item }: { item: Task }) => (
+        <TaskItem
+          isLoading={isLoading}
+          task={item}
+          toggleDone={toggleDone}
+          deleteTask={deleteTask}
+        />
+      ),
+      [isLoading, toggleDone, deleteTask],
+    );
+
+    const keyExtractor = useCallback((item: Task) => item._id, []);
+
+    return (
+      <FlatList
+        data={filteredData}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        style={styles.list}
+        ListEmptyComponent={<EmptyList />}
+        showsVerticalScrollIndicator={false}
       />
-    ),
-    [],
-  );
+    );
+  },
+);
 
-  return (
-    <FlatList
-      data={filteredData}
-      keyExtractor={item => item._id}
-      renderItem={renderItem}
-      style={styles.list}
-      ListEmptyComponent={<EmptyList />}
-      showsVerticalScrollIndicator={false}
-    />
-  );
-};
+TaskList.displayName = 'TaskList';
 
 export default TaskList;

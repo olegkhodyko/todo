@@ -1,13 +1,12 @@
-import { TaskFormState } from '@shared/types/store';
+import { TaskFilterState, TaskFormState } from '@shared/types/store';
 import { Task } from '@shared/types/tasks';
 import { create } from 'zustand';
 
-export const taskStore = create<TaskFormState>((set, get) => ({
+export const taskFormStore = create<TaskFormState>((set, get) => ({
   title: '',
   description: '',
   important: false,
   editingTask: null,
-  filterType: 'all',
 
   setTitle: title => set({ title: title.trim() }),
   setDescription: description => set({ description: description.trim() }),
@@ -26,7 +25,6 @@ export const taskStore = create<TaskFormState>((set, get) => ({
       description: task.description,
       important: task.important,
     }),
-  setFilterType: filterType => set({ filterType }),
   getFormData: () => {
     const { title, description, important } = get();
     return {
@@ -43,4 +41,9 @@ export const taskStore = create<TaskFormState>((set, get) => ({
       description: '',
       important: false,
     }),
+}));
+
+export const taskFilterStore = create<TaskFilterState>(set => ({
+  filterType: 'all',
+  setFilterType: filterType => set({ filterType }),
 }));
