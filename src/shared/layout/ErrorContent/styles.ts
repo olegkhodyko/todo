@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native';
+import theme from '@theme';
 
 export default StyleSheet.create({
-  filterRow: {
-    flexDirection: 'row',
+  container: {
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: theme.colors.error,
   },
 });

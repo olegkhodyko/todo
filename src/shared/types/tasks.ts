@@ -1,5 +1,18 @@
-import { Task } from './api';
-type ValueOf<T> = T extends { [key: string]: infer U } ? U : never;
+import { ValueOfEnum } from "@utils/types";
+
+const TaskFilterEnum = {
+  all: 'all',
+  important: 'important',
+} as const;
+export interface Task {
+  _id: string;
+  title: string;
+  description: string;
+  important: boolean;
+  done: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 export type NewTask = Omit<Task, '_id' | 'createdAt' | 'updatedAt'>;
 
@@ -9,9 +22,4 @@ export interface FilterProps {
   title: string;
 }
 
-const TaskFilterEnum = {
-  all: 'all',
-  important: 'important',
-} as const;
-
-export type TaskFilter = ValueOf<typeof TaskFilterEnum>;
+export type TaskFilter = ValueOfEnum<typeof TaskFilterEnum>;

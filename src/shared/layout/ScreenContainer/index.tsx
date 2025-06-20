@@ -3,6 +3,7 @@ import { View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PropsWithChildren } from 'react';
 import { ViewProps } from 'react-native';
+import theme from '@theme';
 
 interface ScreenContainerProps extends PropsWithChildren<ViewProps> {
   testID: string;
@@ -21,7 +22,7 @@ const ScreenContainer: FC<ScreenContainerProps> = ({
     paddingTop: insets.top,
     paddingBottom: insets.bottom,
     paddingHorizontal: Math.max(insets.left, insets.right),
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
     overflow: 'hidden',
   };
 

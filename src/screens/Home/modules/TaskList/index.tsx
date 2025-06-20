@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from 'react';
 import { EmptyList, TaskItem } from '@screens/Home/components';
-import { Task } from '@shared/types/api';
 import { FlatList } from 'react-native';
+import { taskStore } from '@screens/Home/store';
+import { Task } from '@shared/types/tasks';
 import styles from './styles';
-import { useTaskForm } from '@screens/Home/store/form';
 
 interface TaskListProps {
   data: Task[];
@@ -18,7 +18,7 @@ const TaskList: FC<TaskListProps> = ({
   toggleDone,
   deleteTask,
 }) => {
-  const filterType = useTaskForm(state => state.filterType);
+  const filterType = taskStore(state => state.filterType);
 
   const filteredData = React.useMemo(() => {
     if (filterType === 'important') return data.filter(t => t.important);
@@ -44,6 +44,7 @@ const TaskList: FC<TaskListProps> = ({
       renderItem={renderItem}
       style={styles.list}
       ListEmptyComponent={<EmptyList />}
+      showsVerticalScrollIndicator={false}
     />
   );
 };

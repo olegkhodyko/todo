@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  importantRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  descriptionInput: {
+    height: 60,
   },
 });

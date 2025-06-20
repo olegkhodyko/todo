@@ -1,14 +1,18 @@
+import theme from '@theme';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  taskContainer: {
+    flex: 1,
+  },
   taskItem: {
     flexDirection: 'row',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.colors.white,
     padding: 14,
     borderRadius: 12,
     marginVertical: 6,
     alignItems: 'center',
-    shadowColor: '#000',
+    shadowColor: theme.colors.black,
     shadowOpacity: 0.05,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 1 },
@@ -19,38 +23,27 @@ export default StyleSheet.create({
   taskTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
+    color: theme.colors.textPrimary,
   },
   taskDoneText: {
-    color: '#6b7280',
+    color: theme.colors.textSecondary,
     textDecorationLine: 'line-through',
   },
   taskDescription: {
     fontSize: 14,
-    color: '#6b7280',
+    color: theme.colors.textSecondary,
     marginTop: 4,
   },
   buttonsRow: {
     flexDirection: 'row',
-    marginLeft: 10,
+    gap: 8,
   },
-  smallButton: {
-    marginLeft: 10,
-    backgroundColor: '#e0e7ff',
-    borderRadius: 6,
-    padding: 6,
-    minWidth: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  smallButtonText: {
-    fontSize: 16,
-    color: '#1e40af',
-  },
-
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  taskMuted: {
+    opacity: 0,
   },
 });

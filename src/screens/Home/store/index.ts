@@ -1,25 +1,8 @@
-import { Task } from '@shared/types/api';
-import { NewTask, TaskFilter } from '@shared/types/tasks';
+import { TaskFormState } from '@shared/types/store';
+import { Task } from '@shared/types/tasks';
 import { create } from 'zustand';
 
-interface TaskFormState {
-  title: string;
-  description: string;
-  important: boolean;
-  editingTask: Task | null;
-  filterType: TaskFilter;
-
-  setTitle: (title: string) => void;
-  setDescription: (desc: string) => void;
-  toggleImportant: () => void;
-  reset: () => void;
-  startEdit: (task: Task) => void;
-  cancelEdit: () => void;
-  getFormData: () => NewTask;
-  setFilterType: (type: TaskFilter) => void;
-}
-
-export const useTaskForm = create<TaskFormState>((set, get) => ({
+export const taskStore = create<TaskFormState>((set, get) => ({
   title: '',
   description: '',
   important: false,

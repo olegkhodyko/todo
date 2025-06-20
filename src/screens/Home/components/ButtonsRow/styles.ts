@@ -3,6 +3,6 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   buttonsRow: {
     flexDirection: 'row',
-    marginLeft: 10,
+    gap: 16,
   },
 });

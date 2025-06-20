@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { ScreenContainer } from '@shared/layout';
-import { StyleSheet, Text } from 'react-native';
+import { Text } from 'react-native';
+import styles from './styles';
 
 interface ErrorContentProps {
   error: string;
@@ -8,15 +9,8 @@ interface ErrorContentProps {
 
 const ErrorContent: FC<ErrorContentProps> = ({ error }) => (
   <ScreenContainer testID="error-content" style={styles.container}>
-    <Text style={{ color: 'red' }}>Error: {error}</Text>
+    <Text style={styles.text}>Error: {error}</Text>
   </ScreenContainer>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default ErrorContent;

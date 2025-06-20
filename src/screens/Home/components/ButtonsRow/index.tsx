@@ -1,21 +1,23 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button } from '@shared/ui';
-import { useTaskForm } from '@screens/Home/store/form';
+import { taskStore } from '@screens/Home/store';
 import styles from './styles';
 
-interface TaskFormProps {
+interface ButtonsRowProps {
   saveTask: () => void;
 }
 
-const ButtonsRow: FC<TaskFormProps> = ({ saveTask }) => {
-  const editingTask = useTaskForm(state => state.editingTask);
-  const cancelEdit = useTaskForm(state => state.cancelEdit);
+const ButtonsRow: FC<ButtonsRowProps> = ({ saveTask }) => {
+  const editingTask = taskStore(state => state.editingTask);
+  const cancelEdit = taskStore(state => state.cancelEdit);
 
   return (
     <View style={styles.buttonsRow}>
       <Button title={editingTask ? 'Save' : 'Add'} onPress={saveTask} />
-      {editingTask && <Button title="Cancel" onPress={cancelEdit} />}
+      {editingTask && (
+        <Button title="Cancel" variant="[md-gray]" onPress={cancelEdit} />
+      )}
     </View>
   );
 };

@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { api } from '@api/api';
-import { Task } from '@shared/types/api';
-import { NewTask } from '@shared/types/tasks';
-import { useTaskForm } from '@screens/Home/store/form';
+import { NewTask, Task } from '@shared/types/tasks';
 import { Alert } from 'react-native';
+import { taskStore } from '@screens/Home/store';
 
 function useTasks() {
   const [data, setData] = useState<Task[]>([]);
@@ -11,10 +10,10 @@ function useTasks() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const getFormData = useTaskForm(state => state.getFormData);
-  const cancelEdit = useTaskForm(state => state.cancelEdit);
-  const editingTask = useTaskForm(state => state.editingTask);
-  const title = useTaskForm(state => state.title);
+  const getFormData = taskStore(state => state.getFormData);
+  const cancelEdit = taskStore(state => state.cancelEdit);
+  const editingTask = taskStore(state => state.editingTask);
+  const title = taskStore(state => state.title);
 
   const fetchTasks = useCallback(async () => {
     setIsFetching(true);
