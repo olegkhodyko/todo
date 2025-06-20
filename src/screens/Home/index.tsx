@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { FilterRow, TaskForm, TaskList } from './modules';
+import { FilterRow, TaskForm, TaskList } from '@screens/Home/modules';
 import { ErrorContent } from '@shared/layout';
-import { useTasks } from './hooks';
+import { useTasks } from '@screens/Home/hooks';
 import styles from './styles';
 
 export default function TaskApp() {

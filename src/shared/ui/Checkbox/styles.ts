@@ -1,3 +1,4 @@
+import theme from '@theme';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
@@ -5,18 +6,17 @@ export default StyleSheet.create({
     width: 22,
     height: 22,
     borderWidth: 1.5,
-    borderColor: '#94a3b8',
+    borderColor: theme.colors.neutralGray,
     borderRadius: 6,
-    marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkboxChecked: {
-    backgroundColor: '#3b82f6',
-    borderColor: '#3b82f6',
+    backgroundColor: theme.colors.primaryBlue,
+    borderColor: theme.colors.primaryBlue,
   },
   checkboxMark: {
-    color: 'white',
+    color: theme.colors.white,
     fontWeight: 'bold',
   },
 });

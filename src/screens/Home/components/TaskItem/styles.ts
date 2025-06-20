@@ -8,7 +8,8 @@ export default StyleSheet.create({
   taskItem: {
     flexDirection: 'row',
     backgroundColor: theme.colors.white,
-    padding: 14,
+    paddingVertical: 18,
+    paddingHorizontal: 12,
     borderRadius: 12,
     marginVertical: 6,
     alignItems: 'center',

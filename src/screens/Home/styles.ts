@@ -6,8 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.mainBackground,
     padding: 16,
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingVertical: 40,
     gap: 12,
   },
   header: {

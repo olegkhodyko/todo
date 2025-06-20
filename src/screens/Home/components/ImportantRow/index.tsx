@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { Checkbox } from '@shared/ui';
 import { taskStore } from '@screens/Home/store';
 import styles from './styles';
@@ -9,10 +9,10 @@ const ImportantRow: FC = () => {
   const important = taskStore(state => state.important);
 
   return (
-    <View style={styles.importantRow}>
+    <TouchableOpacity style={styles.importantRow} onPress={toggleImportant} activeOpacity={1}>
       <Checkbox important={important} toggle={toggleImportant} />
       <Text>Important task</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default memo(ImportantRow);
