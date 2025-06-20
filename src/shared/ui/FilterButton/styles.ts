@@ -1,18 +1,23 @@
 import { StyleSheet } from 'react-native';
+import theme from '@theme';
 
 export default StyleSheet.create({
-  filterButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
+  button: {
+    backgroundColor: theme.colors.border.tertiary,
+    paddingVertical: 12,
     borderRadius: 20,
-    backgroundColor: '#e5e7eb',
-    marginHorizontal: 6,
+    width: 100,
   },
-  filterButtonActive: {
-    backgroundColor: '#3b82f6',
+  buttonActive: {
+    backgroundColor: theme.colors.primary,
   },
-  filterText: {
-    color: '#374151',
-    fontWeight: '600',
+  buttonText: {
+    color: theme.colors.text.primary,
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  buttonTextActive: {
+    color: theme.colors.text.inverse,
   },
 });

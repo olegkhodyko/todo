@@ -23,24 +23,3 @@ export const sortTasks = (tasks: Task[]): Task[] => {
     return 0;
   });
 };
-
-export const groupTasksByStatus = (tasks: Task[]) => {
-  return {
-    completed: tasks.filter(task => task.done),
-    pending: tasks.filter(task => !task.done),
-  };
-};
-
-export const getTaskStats = (tasks: Task[]) => {
-  const total = tasks.length;
-  const completed = tasks.filter(task => task.done).length;
-  const important = tasks.filter(task => task.important).length;
-
-  return {
-    total,
-    completed,
-    pending: total - completed,
-    important,
-    completionRate: total > 0 ? Math.round((completed / total) * 100) : 0,
-  };
-};

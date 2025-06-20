@@ -8,13 +8,12 @@ interface ItemButtonProps {
   action: () => void;
 }
 
-const ItemButton: FC<ItemButtonProps> = ({ content, isLoading, action }) => (
+const ItemButton: FC<ItemButtonProps> = ({ content, action }) => (
   <TouchableOpacity
-    style={styles.smallButton}
+    style={[styles.button]}
     onPress={action}
-    disabled={isLoading}
   >
-    <Text style={styles.smallButtonText}>{content}</Text>
+    <Text style={[styles.buttonText]}>{content}</Text>
   </TouchableOpacity>
 );
 

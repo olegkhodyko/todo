@@ -1,16 +1,19 @@
-import theme from '@theme';
 import { StyleSheet } from 'react-native';
+import theme from '@theme';
 
 export default StyleSheet.create({
-  smallButton: {
-    backgroundColor: theme.colors.light,
+  button: {
+    backgroundColor: theme.colors.state.hover,
+    padding: 8,
     borderRadius: 6,
-    padding: 6,
-    minWidth: 32,
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: 36,
+    minHeight: 36,
   },
-  smallButtonText: {
+  buttonText: {
     fontSize: 16,
+    fontWeight: '600',
+    color: theme.colors.text.primary,
   },
 });

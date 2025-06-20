@@ -24,15 +24,9 @@
       "@theme": ["theme/index.ts"],
       "@theme/*": ["theme/*"],
 
-      "@interfaces": ["interfaces/index.ts"],
-      "@interfaces/*": ["interfaces/*"],
-
-      "@features": ["features/index.ts"],
-      "@features/*": ["features/*"],
-
       "@utils": ["utils/index.ts"],
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src", "types/env.d.ts"]
+  "include": ["src"]
 }

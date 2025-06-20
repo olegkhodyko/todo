@@ -1,15 +1,14 @@
 import { StyleSheet } from 'react-native';
+import theme from '@theme';
 
 export default StyleSheet.create({
   input: {
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 10,
-    fontSize: 16,
+    backgroundColor: theme.colors.background.secondary,
     borderWidth: 1,
-    borderColor: '#cbd5e1',
-    marginBottom: 10,
-    color: '#374151',
+    borderColor: theme.colors.border.secondary,
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    color: theme.colors.text.primary,
   },
 });

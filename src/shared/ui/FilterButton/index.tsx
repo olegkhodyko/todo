@@ -9,10 +9,12 @@ interface FilterButtonProps extends TouchableOpacityProps {
 
 const FilterButton: FC<FilterButtonProps> = ({ active, title, ...rest }) => (
   <TouchableOpacity
-    style={[styles.filterButton, active && styles.filterButtonActive]}
+    style={[styles.button, active && styles.buttonActive]}
     {...rest}
   >
-    <Text style={styles.filterText}>{title}</Text>
+    <Text style={[styles.buttonText, active && styles.buttonTextActive]}>
+      {title}
+    </Text>
   </TouchableOpacity>
 );
 

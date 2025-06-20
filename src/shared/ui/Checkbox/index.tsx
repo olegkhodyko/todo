@@ -12,7 +12,7 @@ const Checkbox: FC<CheckboxProps> = ({ important, toggle }) => (
     style={[styles.checkbox, important && styles.checkboxChecked]}
     onPress={toggle}
   >
-    {important && <Text style={styles.checkboxMark}>✔</Text>}
+    {important && <Text style={styles.checkmark}>✔</Text>}
   </TouchableOpacity>
 );
 

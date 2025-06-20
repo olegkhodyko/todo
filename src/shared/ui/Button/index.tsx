@@ -1,23 +1,28 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import { ButtonVariant, getButtonStyles } from './styles';
+import styles from './styles';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  variant?: ButtonVariant;
+  variant?: 'primary' | 'secondary';
 }
 
-const Button: FC<ButtonProps> = ({
-  variant = '[md-blue]',
-  title,
-  style,
-  ...rest
-}) => {
-  const { container, text } = getButtonStyles(variant);
+const Button: FC<ButtonProps> = ({ variant = 'primary', title, ...rest }) => {
+  const getButtonStyle = () => {
+    return variant === 'primary'
+      ? [styles.button, styles.buttonPrimary]
+      : [styles.button, styles.buttonSecondary];
+  };
+
+  const getTextStyle = () => {
+    return variant === 'primary'
+      ? styles.buttonPrimaryText
+      : styles.buttonSecondaryText;
+  };
 
   return (
-    <TouchableOpacity style={[container, style]} {...rest}>
-      <Text style={text}>{title}</Text>
+    <TouchableOpacity style={getButtonStyle()} {...rest}>
+      <Text style={getTextStyle()}>{title}</Text>
     </TouchableOpacity>
   );
 };

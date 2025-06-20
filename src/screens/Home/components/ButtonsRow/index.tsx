@@ -16,7 +16,7 @@ const ButtonsRow: FC<ButtonsRowProps> = ({ saveTask }) => {
     <View style={styles.buttonsRow}>
       <Button title={editingTask ? 'Save' : 'Add'} onPress={saveTask} />
       {editingTask && (
-        <Button title="Cancel" variant="[md-gray]" onPress={cancelEdit} />
+        <Button title="Cancel" variant="secondary" onPress={cancelEdit} />
       )}
     </View>
   );
