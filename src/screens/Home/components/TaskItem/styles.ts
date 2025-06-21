@@ -1,5 +1,10 @@
 import theme from '@theme';
 import { StyleSheet } from 'react-native';
+import {
+  TASK_ITEM_HEIGHT,
+  TASK_ITEM_PADDING,
+  TASK_ITEM_BORDER_RADIUS,
+} from '@screens/Home/constants/dimensions';
 
 export default StyleSheet.create({
   taskContainer: {
@@ -7,10 +12,10 @@ export default StyleSheet.create({
   },
   taskItem: {
     backgroundColor: theme.colors.background.secondary,
-    padding: 16,
-    marginVertical: 4,
+    padding: TASK_ITEM_PADDING,
     marginHorizontal: 16,
-    borderRadius: 8,
+    borderRadius: TASK_ITEM_BORDER_RADIUS,
+    height: TASK_ITEM_HEIGHT,
     shadowColor: theme.colors.shadow.color,
     shadowOffset: {
       width: 0,
